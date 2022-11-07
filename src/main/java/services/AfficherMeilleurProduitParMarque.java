@@ -16,7 +16,7 @@ public class AfficherMeilleurProduitParMarque extends MenuService {
 		List<Produit> lstStock = RecupFichier.leStock.getLstProduit();
 		List<Produit> meilleurProduits = new ArrayList<>();
 
-		if (RecupFichier.marques.get(marque) == null) {
+		if (RecupFichier.MARQUE_MAP.get(marque) == null) {
 			System.out.println(marque + "Marque non trouvé dans la base");
 			return;
 		}
@@ -25,11 +25,11 @@ public class AfficherMeilleurProduitParMarque extends MenuService {
 		String[] nutriScores = { "a", "b", "c", "d", "e", "f" };
 		for (String nutriScore : nutriScores) {
 			for (Produit produit : lstStock) {
-				String marqueProduit = produit.getMarque().getNom().toLowerCase();
-				if (produit.getScoreNutritionnel().contains(nutriScore) && marqueProduit.equals(marque)
+				String marqueProduit = produit.getMarque().getLibelle().toLowerCase();
+				if (produit.getGrade().contains(nutriScore) && marqueProduit.equals(marque)
 						&& meilleurProduits.size() <= 10) {
-					System.out.println(marqueProduit + " - " + produit.getNom() + " - "
-							+ produit.getScoreNutritionnel().toUpperCase());
+					System.out.println(marqueProduit + " - " + produit.getLibelle() + " - "
+							+ produit.getGrade().toUpperCase());
 					meilleurProduits.add(produit);
 				}
 			}

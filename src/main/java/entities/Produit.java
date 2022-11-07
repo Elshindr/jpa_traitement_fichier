@@ -1,50 +1,66 @@
 package entities;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * The type Produit.
  */
+@Entity
+@Table(name="produit")
 public class Produit {
-    private String nom;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String libelle;
+    private String grade;
+    @OneToOne
     private Categorie categorie;
+    @OneToOne
     private Marque marque;
-    private String scoreNutritionnel;
-    private Map<String, String> lstAttributs;
-    private List<Ingredient> lstIngredient;
-    private List<Additif> lstAdditif;
-    private List<Allergene> lstAllergene;
+
+    @ManyToMany(mappedBy = "lstProduit")
+    private List<Ingredient> lstIngredient =new ArrayList<>();
+
+    @ManyToMany(mappedBy = "lstProduit")
+    private List<Additif> lstAdditif = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "lstProduit")
+    private List<Allergene> lstAllergene=new ArrayList<>();
+
+   // private Map<String, Integer> mapAttribut;
+
+    public Produit() {
+    }
 
 
-    /**
-     * Instantiates a new Produit.
-     *
-     * @param categorie         the categorie
-     * @param marque            the marque
-     * @param scoreNutritionnel the score nutritionnel
-     * @param lstAttributs      the list attributs
-     * @param lstIngredient     the list ingredient
-     * @param lstAdditif        the list additif
-     * @param lstAllergene      the list allergene
-     */
-    public Produit(String nom,Categorie categorie, Marque marque, String scoreNutritionnel, Map<String, String> lstAttributs, List<Ingredient> lstIngredient, List<Additif> lstAdditif, List<Allergene> lstAllergene) {
-        this.nom = nom;
+    public Produit(String libelle, Categorie categorie, Marque marque, String grade, List<Ingredient> lstIngredient, List<Additif> lstAdditif, List<Allergene> lstAllergene) {
+        this.libelle = libelle;
         this.categorie = categorie;
         this.marque = marque;
-        this.scoreNutritionnel = scoreNutritionnel;
-        this.lstAttributs = lstAttributs;
+        this.grade = grade;
         this.lstIngredient = lstIngredient;
         this.lstAdditif = lstAdditif;
         this.lstAllergene = lstAllergene;
     }
 
-    public String getNom() {
-        return nom;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
     /**
@@ -88,36 +104,20 @@ public class Produit {
      *
      * @return the score nutritionnel
      */
-    public String getScoreNutritionnel() {
-        return scoreNutritionnel;
+    public String getGrade() {
+        return grade;
     }
 
     /**
      * Sets score nutritionnel.
      *
-     * @param scoreNutritionnel the score nutritionnel
+     * @param grade the score nutritionnel
      */
-    public void setScoreNutritionnel(String scoreNutritionnel) {
-        this.scoreNutritionnel = scoreNutritionnel;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
-    /**
-     * Gets lst attributs.
-     *
-     * @return the lst attributs
-     */
-    public Map<String, String> getLstAttributs() {
-        return lstAttributs;
-    }
 
-    /**
-     * Sets lst attributs.
-     *
-     * @param lstAttributs the lst attributs
-     */
-    public void setLstAttributs(Map<String, String> lstAttributs) {
-        this.lstAttributs = lstAttributs;
-    }
 
     /**
      * Gets lst ingredient.

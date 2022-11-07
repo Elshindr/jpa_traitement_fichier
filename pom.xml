@@ -9,8 +9,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>7</source>
-					<target>7</target>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -23,5 +23,27 @@
 			<artifactId>commons-lang</artifactId>
 			<version>20030203.000129</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.4.32.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.31</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.11</version>
+		</dependency>
+
 	</dependencies>
 </project>

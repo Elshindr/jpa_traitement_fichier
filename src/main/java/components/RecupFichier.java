@@ -20,28 +20,27 @@ public class RecupFichier {
 	/**
 	 * The Categories.
 	 */
-	public static HashMap<String, Categorie> categories;
+	public final static Map<String, Categorie> CATEGORIE_MAP =  new HashMap<>();
+
 	/**
 	 * The Marques.
 	 */
-	public static HashMap<String, Marque> marques;
+	public final static Map<String, Marque> MARQUE_MAP = new HashMap<>();
+
 	/**
 	 * The Ingredients.
 	 */
-	public static HashMap<String, Ingredient> ingredients;
+	public final static Map<String, Ingredient> INGREDIENT_MAP = new HashMap<>();
+
 	/**
 	 * The Allergenes.
 	 */
-	public static HashMap<String, Allergene> allergenes;
+	public final static Map<String, Allergene> ALLERGENE_MAP = new HashMap<>();
 
 	public static Stock leStock;
 
 	private RecupFichier() {
 		super();
-		RecupFichier.categories = new HashMap<>();
-		RecupFichier.marques = new HashMap<>();
-		RecupFichier.ingredients = new HashMap<>();
-		RecupFichier.allergenes = new HashMap<>();
 	}
 
 	/**
@@ -64,16 +63,18 @@ public class RecupFichier {
 				tokens[i] = line.split("\\|")[i];
 			}
 
-			Categorie categorie = categories.get(tokens[0]);
+			Categorie categorie = CATEGORIE_MAP.get(tokens[0]);
 			if (categorie == null) {
 				categorie = new Categorie(tokens[0]);
-				categories.put(tokens[0], categorie);
+				CATEGORIE_MAP.put(tokens[0], categorie);
+				categorie.setId(CATEGORIE_MAP.size());
 			}
 
-			Marque marque = marques.get(tokens[1]);
+			Marque marque = MARQUE_MAP.get(tokens[1]);
 			if (marque == null) {
 				marque = new Marque(tokens[1]);
-				marques.put(tokens[1], marque);
+				MARQUE_MAP.put(tokens[1], marque);
+				marque.setId(MARQUE_MAP.size());
 			}
 
 			List<Allergene> lstAllergenes = RecupFichier.initAllergenes(tokens[28]);
@@ -86,15 +87,14 @@ public class RecupFichier {
 			Map<String, String> lstAttribut = null;
 
 			// Instantiation de Produits
-			Produit produit = new Produit(tokens[2], categorie, marque, tokens[3], lstAttribut, lstIngredients,
-					lstAdditifs, lstAllergenes);
+			Produit produit = new Produit(tokens[2], categorie, marque, tokens[3],lstIngredients, lstAdditifs, lstAllergenes);
 			stock.add(produit);
 
 		}
 
 		// Instantiation du Stock
 		leStock = new Stock(stock);
-
+		System.out.println("TROUVER");
 		return recupFichier;
 	}
 
@@ -106,10 +106,10 @@ public class RecupFichier {
 			String[] allergenes = lineAllergenes.split(",");
 			for (String newAllergene : allergenes) {
 				newAllergene = newAllergene.toLowerCase().replace("fr:", "").replace("en:", "").replace("*", "").trim();
-				Allergene allergene = RecupFichier.allergenes.get(newAllergene);
+				Allergene allergene = RecupFichier.ALLERGENE_MAP.get(newAllergene);
 				if (allergene == null) {
 					allergene = new Allergene(newAllergene);
-					RecupFichier.allergenes.put(newAllergene, allergene);
+					RecupFichier.ALLERGENE_MAP.put(newAllergene, allergene);
 				}
 				lstAllergenes.add(allergene);
 			}
@@ -126,11 +126,11 @@ public class RecupFichier {
 			for (String strIngredient : arrIngredient) {
 	
 				strIngredient = strIngredient.replace(".", "").trim().toLowerCase();
-				Ingredient newIngredient = ingredients.get(strIngredient);
-	
+				Ingredient newIngredient = INGREDIENT_MAP.get(strIngredient);
+
 				if (newIngredient == null) {
 					newIngredient = new Ingredient(strIngredient);
-					ingredients.put(strIngredient, newIngredient);
+					INGREDIENT_MAP.put(strIngredient, newIngredient);
 				}
 				lstIngredients.add(newIngredient);
 			}
@@ -150,7 +150,5 @@ public class RecupFichier {
 
 		}*/
 		return listAdditif;
-
 	}
-
 }

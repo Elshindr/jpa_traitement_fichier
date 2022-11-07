@@ -1,37 +1,37 @@
 package entities;
 
+
 import java.util.List;
 
 /**
  * The type Stock.
- */
+**/
+
 public class Stock {
+
+    private Integer id;
+
+
     private static List<Produit> lstProduit;
 
-    /**
-     * Instantiates a new Stock.
-     *
-     * @param lstProduit the lst produit
-     */
+    public Stock() {
+    }
+
     public Stock(List<Produit> lstProduit) {
         this.lstProduit = lstProduit;
     }
 
-    /**
-     * Gets lst produit.
-     *
-     * @return the lst produit
-     */
-    public List<Produit> getLstProduit() {
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public static List<Produit> getLstProduit() {
         return lstProduit;
     }
 
-    /**
-     * Sets lst produit.
-     *
-     * @param lstProduit the lst produit
-     */
-    public void setLstProduit(List<Produit> lstProduit) {
-        this.lstProduit = lstProduit;
-    }
 }
